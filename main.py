@@ -41,13 +41,13 @@ async def get_memo_detail(memo_id: int):
 @app.put("/memos/{memo_id}", response_model=ResponseSchema)
 async def modify_memo(memo_id: int, memo: InsertAndUpdateMemoSchema):
     print(memo_id, memo)
-    return ResponseSchema(message=f"memo_id: {memo_id}のメモが正常に更新されました")
+    return ResponseSchema(message=f"id: {memo_id}のメモが正常に更新されました")
 
 # 特定のメモ削除
 @app.delete("/memos/{memo_id}", response_model=ResponseSchema)
 async def delete_memo(memo_id: int):
     print(memo_id)
-    return ResponseSchema(message=f"memo_id: {memo_id}のメモが正常に削除されました")
+    return ResponseSchema(message=f"id: {memo_id}のメモが正常に削除されました")
 
 # バリデーションエラーのカスタムハンドラ
 @app.exception_handler(ValidationError)
