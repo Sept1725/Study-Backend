@@ -27,15 +27,15 @@ async def create_memo(memo: InsertAndUpdateMemoSchema):
 @app.get("/memos", response_model=list[MemoSchema])
 async def get_memos_list():
     return [
-        MemoSchema(title="タイトル1", description="詳細1", memo_id=1),
-        MemoSchema(title="タイトル2", description="詳細2", memo_id=2),
-        MemoSchema(title="タイトル3", description="詳細3", memo_id=3),
+        MemoSchema(title="タイトル1", description="詳細1", id=1),
+        MemoSchema(title="タイトル2", description="詳細2", id=2),
+        MemoSchema(title="タイトル3", description="詳細3", id=3),
     ]
 
 # 特定のメモ取得
 @app.get("/memos/{memo_id}", response_model=MemoSchema)
 async def get_memo_detail(memo_id: int):
-    return MemoSchema(title="タイトル1", description="詳細1", memo_id=memo_id),
+    return MemoSchema(title="タイトル1", description="詳細1", id=memo_id),
 
 # 特定のメモ更新
 @app.put("/memos/{memo_id}", response_model=ResponseSchema)
