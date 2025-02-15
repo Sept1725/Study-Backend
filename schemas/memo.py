@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 
 # 登録・更新で使用するスキーマ
 class InsertAndUpdateMemoSchema(BaseModel):
-    id: int = Field(..., description="レコードを特定するためのユニークID", example=1)
     title: str = Field(..., description="メモのタイトル。1文字以上入力が必須。", example="明日のアジェンダ作成", min_length=1)
     description: str = Field(default="", description="メモの内容の追加情報。任意。", example="14:00まで")
 
