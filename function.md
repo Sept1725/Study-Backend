@@ -18,3 +18,14 @@ No | HTTPメソッド | URI              | 機能
 3  | GET         | /memos/{memo_id} | PK(Primary Key)をキーに、対応するメモ情報を取得
 4  | PUT         | /memos/{memo_id} | PKをキーに、対応するメモ情報を更新
 5  | DELETE      | /memos/{memo_id} | PKをキーに、対応するメモを削除
+
+<br>
+
+# テーブル定義
+フィールド名  | データ型     | 主キー(PK) | 必須(NOT NULL) | 自動インクリメント | デフォルト値     | 説明             |
+----------- | ----------- | --------- | ------------- | --------------- | -------------- | --------------- |
+memo_id     | Integer     | Yes       | Yes           | Yes             | なし            | メモの一意識別子  |
+title       | String(50)  | No        | Yes           | No              | なし            | メモのタイトル    |
+description | String(225) | No        | No            | No              | なし            | メモの詳細説明    |
+created_at  | DateTime    | No        | No            | No              | datetime.now() | メモの作成日時    |
+update_at   | DateTime    | No        | No            | No              | なし            | メモの更新日時    |
