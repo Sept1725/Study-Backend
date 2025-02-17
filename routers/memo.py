@@ -41,7 +41,7 @@ async def get_memo_detail(
     memo = await memo_crud.get_memo_by_id(db, id)
     if not memo:
         # メモが見つからない場合はHTTP 404エラーを返す
-        raise HTTPException(status_code=404, detail="メモが見つかりません")
+        raise HTTPException(status_code=404, detail="対象のメモが見つかりません")
     
     return memo
 
