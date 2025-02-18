@@ -55,7 +55,7 @@ async def get_memo_by_id(
         db_session(AsyncSession): 非同期DBセッション
         id(int): 削除するメモのID(Primary Key)
     Returns:
-        Memo | None: 削除されたメモのモデル、メモが存在しない場合は Noneを返却
+        Memo | None: 削除されたメモのモデル、メモが存在しない場合はNoneを返却
     """
     print("=== 1件取得: 開始 ===")
     result = await db_session.execute(
@@ -64,6 +64,33 @@ async def get_memo_by_id(
     memo = result.scalars().first()
     print(">>> データ取得完了")
 
+    return memo
+
+# 更新
+async def update_memo(
+        db_session: AsyncSession,
+        id: int,
+        target_data: memo_schema.InsertAndUpdateMemoSchema
+) -> memo_model.Memo | None:
+    """
+    DBのメモを更新する関数
+    Args:
+        db_session(AsyncSession): 非同期セッション
+        id(int): 更新するメモのID(Primary Key)
+        target_data(InsertAndUpdateMemoSchema): 更新するデータ
+    Returns:
+        Memo | None: 更新されたメモのモデル、メモが存在しない場合はNoneを返却
+    """
+    print("=== データ更新: 開始 ===")
+    memo = await get_memo_by_id(db_session, id)
+    if memo:
+        memo.title = target_data.title
+        memo.description = target_data.description
+        memo.update_at = datetime.now()
+        await db_session.commit()
+        await db_session.refresh(memo)
+        print(">>> データ更新完了")
+    
     return memo
 
 # 削除

@@ -45,6 +45,17 @@ async def get_memo_detail(
     
     return memo
 
+# 1件更新のエンドポイント
+@router.put("/{id}", response_model=ResponseSchema)
+async def modify_memo(id: int, memo: InsertAndUpdateMemoSchema, db: AsyncSession = Depends(db.get_dbsession)):
+    # 指定されたIDのメモを新しいデータで更新
+    updated_memo = await memo_crud.update_memo(db, id, memo)
+    if not updated_memo:
+        # 更新対象のメモが見つからない場合はHTTP 404エラーを返す
+        raise HTTPException(status_code=404, detail="更新対象が見つかりません")
+
+    return ResponseSchema(message="メモが正常に更新されました")
+
 # 1件削除のエンドポイント
 @router.delete("/{id}", response_model=ResponseSchema)
 async def remove_memo(

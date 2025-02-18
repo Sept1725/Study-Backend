@@ -7,6 +7,7 @@ from schemas.memo import ResponseSchema, InsertAndUpdateMemoSchema
 
 app = FastAPI()
 
+# CORS設定
 origins = [
     "http://localhost:5173"
 ]
@@ -18,13 +19,8 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+# ルーターのマウント
 app.include_router(memo_router)
-
-# メモ更新
-@app.put("/memos/{id}", response_model=ResponseSchema)
-async def modify_memo(id: int, memo: InsertAndUpdateMemoSchema):
-    print(id, memo)
-    return ResponseSchema(message="メモが正常に更新されました")
 
 # バリデーションエラーのカスタムハンドラ
 @app.exception_handler(ValidationError)
